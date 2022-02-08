@@ -7,6 +7,7 @@ COPY php.ini /usr/local/etc/php/
 RUN apt update
 RUN apt install -y git
 RUN apt install -y vim
+RUN apt install -y zip unzip
 RUN docker-php-ext-install bcmath pdo_mysql
 
 # composer install
