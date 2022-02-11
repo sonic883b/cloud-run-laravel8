@@ -30,7 +30,7 @@ jobs:
           docker build -f docker/Dockerfile -t asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} .
 
           gcloud auth configure-docker
-          docker push asia.gcr.io/${ secrets.TEST_GCP_PROJECT }/${ secrets.TEST_GCP_APPLICATION }
+          docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
