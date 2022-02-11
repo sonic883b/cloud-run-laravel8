@@ -28,11 +28,9 @@ jobs:
         run: |
           gcloud config set project ${{ secrets.TEST_GCP_PROJECT }}
           docker build -f docker/Dockerfile -t asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} .
-          gcloud config set run/region asia-east1
-          gcloud services enable \
-              containerregistry.googleapis.com \
-              cloudresourcemanager.googleapis.com \
-              iam.googleapis.com
+
+          gcloud auth configure-docker
+          docker push asia.gcr.io/${ secrets.TEST_GCP_PROJECT }/${ secrets.TEST_GCP_APPLICATION }
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
