@@ -35,7 +35,7 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |
-          gcloud run deploy ${{ secrets.TEST_GCP_APPLICATION }}
+          gcloud run deploy ${{ secrets.TEST_GCP_APPLICATION }} \
           --image asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} \
           --region asia-east1 \
           --platform managed \
