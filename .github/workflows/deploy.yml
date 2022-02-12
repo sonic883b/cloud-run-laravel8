@@ -21,7 +21,7 @@ jobs:
       # Decode and put .env file
       # https://casualdevelopers.com/tech-tips/how-to-use-dotenv-with-base64-on-circleci/
       - name: Decode .env file
-      - run: |
+        run: |
           echo ${{ secrets.TEST_ENV_FILE }} | base64 --decode > src/.env
 
       # Configure Docker with Credentials
