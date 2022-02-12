@@ -18,6 +18,12 @@ jobs:
           service_account_key: ${{ secrets.TEST_GCP_CREDENTIALS }}
           export_default_credentials: true
 
+      # Decode and put .env file
+      # https://casualdevelopers.com/tech-tips/how-to-use-dotenv-with-base64-on-circleci/
+      - name: Decode .env file
+      - run: |
+        echo ${{ secrets.TEST_ENV_FILE }} | base64 --decode > src/.env
+
       # Configure Docker with Credentials
       - name: Configure Docker
         run: |
