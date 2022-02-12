@@ -16,7 +16,15 @@ EXPOSE 8080
 COPY --from=build /app /var/www
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 777 -R /var/www
-RUN cd /var/www/src && composer install
+
+# initialize laravel
+WORKDIR /var/www/src
+RUN composer install --optimize-autoloader --no-dev
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+RUN php artisan migrate
+WORKDIR /
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
