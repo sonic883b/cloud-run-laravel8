@@ -30,12 +30,14 @@ jobs:
           gcloud auth configure-docker
 
       # Build the Docker image
-      - name: Build & Publish
+      - name: Build
         run: |
           gcloud config set project ${{ secrets.TEST_GCP_PROJECT }}
           docker build -f docker/Dockerfile -t asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} .
 
-          gcloud auth configure-docker
+      # Push the Docker image
+      - name: Push
+        run: |
           docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
 
       # Deploy the Docker image to the GKE cluster
@@ -44,6 +46,6 @@ jobs:
           gcloud run deploy ${{ secrets.TEST_GCP_APPLICATION }} \
           --image asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} \
           --region asia-east1 \
-          --platform managed \
+          --platform=managed \
           --add-cloudsql-instances ${{ secrets.TEST_SQL_CONNECTION_NAME }} \
           --allow-unauthenticated
