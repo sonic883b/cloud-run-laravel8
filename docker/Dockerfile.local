@@ -17,20 +17,13 @@ COPY --from=build /app /var/www
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 777 -R /var/www
 
-# initialize laravel
-WORKDIR /var/www/src
-RUN composer install --optimize-autoloader --no-dev
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
-
 WORKDIR /
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
 
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
-RUN chmod +x /var/www/sh/db_migration.sh
+RUN chmod +x /var/www/sh/laravel.local.sh
 
 # This will run the shell file at the time when container is up-and-running successfully (and NOT at the BUILD time)
-ENTRYPOINT ["/var/www/sh/db_migration.sh"]
+ENTRYPOINT ["/var/www/sh/laravel.local.sh"]

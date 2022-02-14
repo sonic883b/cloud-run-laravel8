@@ -3,11 +3,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.local
       args:
         - TZ=${TZ}
     volumes:
-      - .:/var/www
+      - ./src:/var/www/src
       - ./logs:/var/log/php
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     working_dir: /var/www/src
