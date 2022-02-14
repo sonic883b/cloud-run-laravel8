@@ -33,12 +33,12 @@ jobs:
       - name: Build
         run: |
           gcloud config set project ${{ secrets.TEST_GCP_PROJECT }}
-          gcloud builds submit --tag asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} docker/Dockerfile
+          docker build -f docker/Dockerfile -t asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} .
 
       # Push the Docker image
-      # - name: Push
-      #   run: |
-      #     docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
+      - name: Push
+        run: |
+          docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
 
       # Migration
       # - name: Migrate
