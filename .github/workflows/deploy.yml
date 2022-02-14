@@ -40,11 +40,6 @@ jobs:
         run: |
           docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
 
-      # Migration
-      - name: Migrate
-        run: |
-          php src/artisan migrate --force
-
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |
