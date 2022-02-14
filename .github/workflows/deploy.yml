@@ -42,7 +42,8 @@ jobs:
 
       # Deploy the Docker image to the GKE cluster
       - name: Migrate
-        run: php artisan migrate --force
+        run: |
+          php artisan migrate --force
 
       - name: Deploy
         run: |
