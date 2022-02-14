@@ -30,7 +30,7 @@ RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
 
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
-RUN chmod +x /var/www/sh/db-migration.sh
+RUN chmod +x /var/www/sh/db_migration.sh
 
 # This will run the shell file at the time when container is up-and-running successfully (and NOT at the BUILD time)
-ENTRYPOINT ["/var/www/sh/db-migration.sh"]
+ENTRYPOINT ["/var/www/sh/db_migration.sh"]
