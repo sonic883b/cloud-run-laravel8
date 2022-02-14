@@ -7,7 +7,7 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Run Laravel migration (by force, since it would be a prod-environment)
+# Run Laravel migration
 php artisan migrate
 
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
